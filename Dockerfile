@@ -12,7 +12,7 @@ COPY . .
 
 RUN npm run build
 
-COPY ./dist /usr/share/nginx/html
+COPY ./build /usr/share/nginx/html
 
 EXPOSE 80
 
