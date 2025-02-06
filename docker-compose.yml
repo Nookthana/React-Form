@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  react-app:
+    build: .
+    container_name: react-form
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    networks:
+      - react-network
+
+networks:
+  react-network:
+    driver: bridge
