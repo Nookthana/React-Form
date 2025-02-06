@@ -1,28 +1,32 @@
-version: '3.8'
+# version: '3.8'
 
-services:
-  react-app:
-    build: .
-    container_name: react-form  
-    volumes:
-      - .:/app
-    environment:
-      - NODE_ENV=production
-    networks:
-      - react-network  
-    depends_on:
-      - nginx
+# services:
+#   react-app:
+#     build: .
+#     container_name: react-form
+#     ports:
+#       - "80:80"  
+#     volumes:
+#       - .:/app
+#     environment:
+#       - NODE_ENV=production
+#     networks:
+#       - react-network  
+#     depends_on:
+#       - nginx
 
-  nginx:
-    image: nginx:alpine
-    container_name: react-nginx
-    volumes:
-      - ./dist:/app/dist  
-      - ./default-react-app:/etc/nginx/conf.d/default.conf  
-    networks:
-      - react-network
-    restart: always
+#   nginx:
+#     image: nginx:alpine
+#     container_name: react-nginx
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - ./dist:/app/dist  
+#       - ./default-react-app:/etc/nginx/conf.d/default.conf  
+#     networks:
+#       - react-network
+#     restart: always
 
-networks:
-  react-network:
-    driver: bridge
+# networks:
+#   react-network:
+#     driver: bridge
