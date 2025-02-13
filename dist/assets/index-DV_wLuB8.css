@@ -1,0 +1,1 @@
+.spin-overlay{display:flex;justify-content:center;align-items:center;height:100%;position:absolute;width:100%;z-index:9999}.skeleton-image{width:100%;height:auto;max-width:190px}@media (max-width: 768px){.skeleton-image{max-width:150px}}@media (max-width: 480px){.skeleton-image{max-width:120px}}
