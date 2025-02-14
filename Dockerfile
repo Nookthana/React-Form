@@ -1,5 +1,5 @@
 # Stage 1 - Build React app
-FROM node:18 AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --frozen-lockfile
 
 # Copy source code
 COPY . .
@@ -18,8 +18,8 @@ RUN npm run build
 # Stage 2 - Set up Nginx
 FROM nginx:alpine
 
-# Remove default nginx config
-##RUN rm /etc/nginx/nginx.conf
+# Remove default nginx config (ควรใช้ `RUN rm -f` เพื่อป้องกัน error หากไฟล์ไม่มีอยู่)
+RUN rm -f /etc/nginx/conf.d/default.conf
 
 # Copy custom nginx config to container
 COPY ./nginx.conf /etc/nginx/nginx.conf
