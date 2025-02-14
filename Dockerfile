@@ -12,10 +12,6 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
-
-COPY --from=0 /app/dist /app/dist
-
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
