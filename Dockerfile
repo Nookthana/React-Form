@@ -1,4 +1,4 @@
-FROM node:18 AS build 
+FROM node:18 AS build
 
 WORKDIR /app
 
@@ -10,14 +10,19 @@ COPY . .
 
 RUN npm run build
 
+# Stage 2
 FROM nginx:alpine
 
-RUN rm /etc/nginx/conf.d/default.conf
+# Install nginx if needed
+RUN apk add --no-cache nginx
 
-# COPY nginx.conf to correct path
+# Remove default nginx config
+RUN rm /etc/nginx/nginx.conf
+
+# Copy nginx config file to container
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-# Copy the build output from the first stage to nginx
+# Copy build output to nginx directory
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
