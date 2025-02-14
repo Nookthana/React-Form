@@ -1,52 +1,31 @@
-# version: '3.8'
+version: '3.8'
 
-# services:
-#   react-app:
-#     build: .
-#     container_name: react-form
-#     ports:
-#       - "80:80"  
-#     volumes:
-#       - .:/app
-#     environment:
-#       - NODE_ENV=production
-#     networks:
-#       - my-network  
-#     depends_on:
-#       - nginx
-#   nginx:
-#     image: nginx:alpine
-#     container_name: react-nginx
-#     ports:
-#       - "80:80"
-#     volumes:
-#       - ./dist:/app/dist  
-#       - ./default-react-app:/etc/nginx/conf.d/default.conf  
-#     networks:
-#       - my-network
-#     restart: always
+services:
+  react-app:
+    build: .
+    container_name: react-form
+    ports:
+      - "80:80"  
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production
+    networks:
+      - my-network  
+    depends_on:
+      - nginx
+  nginx:
+    image: nginx:alpine
+    container_name: react-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./dist:/app/dist  
+      - ./default-react-app:/etc/nginx/conf.d/default.conf  
+    networks:
+      - my-network
+    restart: always
 
-# networks:
-#   my-network:
-#     driver: bridge
-
-
-## .dockerignore
-# Ignore node_modules directory to prevent copying unnecessary dependencies
-node_modules
-
-# Ignore local editor settings
-.vscode
-
-# Ignore Git repository files
-.git
-
-# Ignore build folder
-dist
-build
-
-# Ignore ESLint, Prettier, and other configuration files that aren't needed in the final image
-.eslint*
-.prettier*
-.editorconfig
-.DS_Store
+networks:
+  my-network:
+    driver: bridge
