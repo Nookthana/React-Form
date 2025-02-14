@@ -1,17 +1,40 @@
-FROM nginx:alpine
+# FROM nginx:alpine
 
-RUN apk add --no-cache nodejs npm
+# RUN apk add --no-cache nodejs npm
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install
+# RUN npm install
 
-COPY . .
+# COPY . .
+
+# RUN npm run build
+
+# EXPOSE 80
+
+# CMD ["nginx", "-g", "daemon off;"]
+
+
+FROM node:20-alpine3.20 As build
+
+WORKDIR /usr/src/app
+
+COPY package*.json package-lock.json ./
+
+RUN npm ci
+
+COPY ./ ./
 
 RUN npm run build
 
+FROM nginx:stable-alpine as production
+
+COPY --from=build /usr/src/app/nginx /etc/nginx/conf.d
+
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"] 
