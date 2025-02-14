@@ -14,8 +14,10 @@ FROM nginx:alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# COPY nginx.conf to correct path
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
+# Copy the build output from the first stage to nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
