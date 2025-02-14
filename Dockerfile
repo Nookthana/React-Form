@@ -19,7 +19,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Remove default nginx config
-RUN rm /etc/nginx/nginx.conf
+##RUN rm /etc/nginx/nginx.conf
 
 # Copy custom nginx config to container
 COPY ./nginx.conf /etc/nginx/nginx.conf
